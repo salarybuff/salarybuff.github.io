@@ -693,8 +693,8 @@ footer {
 
     .navbar {
         padding: 0px;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .navbar-row-bbs {
