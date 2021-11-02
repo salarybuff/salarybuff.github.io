@@ -21,6 +21,12 @@ p {
     border-color: gray;
 }
 
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 
 body{
