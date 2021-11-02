@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="샐러리버프">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ko_KR">
-    <meta property="og:image" content="https://salarybuff.net/logo-en.png">
+    <meta property="og:image" content="https://salarybuff.net/img/logo-en.png">
 
     <meta property="twitter:card" content="summary">
     <meta property="twitter:creator" content="@salarybuff">
@@ -33,65 +33,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
     <!-- favicon -->
-    <link rel="icon" type="image/png" href="https://salarybuff.net/favicon.png">
+    <link rel="icon" type="image/png" href="https://salarybuff.net/img/favicon.png">
     
-
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+
     <!-- Style -->
     <link rel="stylesheet" href="style.css">
-
   </head>
   <body>
-    <div class="mobile-menu" id="mobile-menu">
-        <button class="button white bg-gray margin-left" id="navbar-button-calc-kr" href="/">추천컨텐츠👍</button>
-        <button class="button white bg-gray margin-left" id="navbar-button-calc-kr" href="/calculator">파이어계산기💸</button>
-    </div>
+    <div class="thema-wrapper">
     <div class="navbar">
         <a id="main-logo-wrapper" href="/">
-          <img id="main-logo" srcset="https://salarybuff.net/main-mobile.png 250w,
-                                      https://salarybuff.net//main.png 500w"
+          <img id="main-logo" srcset="https://salarybuff.net/img/main-mobile.png 250w,
+                                      https://salarybuff.net/img/main.png 500w"
                               sizes="(max-width: 414px) 125px, 250px"
-                              src="https://salarybuff.net/main.png"
+                              src="https://salarybuff.net/img/main.png"
                               alt="salarybuff.net main logo">
         </a>
-        <div class="navbar-row">
-            <div class="navbar-row navbar-row-mobile">
-                <script type="text/javascript">
-                    function showMenu(){
-                        let menu = document.getElementById('mobile-menu');
-                        if(menu.style.visibility === 'visible'){
-                            menu.style.display = 'none';
-                            menu.style.visibility = 'hidden';
-                        } else {
-                            menu.style.display = 'block';
-                            menu.style.visibility = 'visible';
-                        }
-                    }
-                </script>
-                <span id="navbar-menu-button" onclick='showMenu()'>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-                </span>
-            </div>
-        </div>
-        <div class="navbar-row">
-            <div class="navbar-row navbar-row-bbs">
-                <div style="display: flex; margin-left: auto;">
-                    <button class="button white bg-gray margin-left" id="navbar-button-calc-kr" href="/">추천컨텐츠👍</button>
-                    <button class="button white bg-gray margin-left" id="navbar-button-calc-kr" href="/calculator">파이어계산기💸</button>
-                </div>
-            </div>
-        </div>
     </div>
-    <br>
-    <div style="padding:30px;">
-      <h1>홈페이지 리뉴얼중입니다.</h1>
-      <p>더 나은 서비스를 제공해 드리기 위해 홈페이지 개편작업을 진행중입니다. 감사합니다. <br> -샐러리버프 팀 일동-</p>
-    </div>
-  </body>
 
+    <!-- main body -->
+    <div style="padding:15px;">
+      <div class="container">
+        <div class="row">
+          <div class="col justify-content-center">
+            <p><strong>'월급에 날개를 달자'</strong>를 모토로 파이어족에게 꼭 필요한 정보와 도구를 제공하는 샐러리버프🔥입니다. 빠르지는 않지만 지속적으로 업데이트 하고 있으니 즐겨찾기에 추가 및 많은 방문 부탁드립니다.</p>
+            <small>(모든 컨텐츠는 주관적인 판단에 의해 선택되었습니다. 컨텐츠 추천이나 기타 문의사항은 salarybuff@gmail.com으로 연락주세요)</small>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col justify-content-center">
+            <h3>파이어족을 위한 추천 유튜브 채널</h3>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 custom-card">
+              <img src="https://yt3.ggpht.com/ytc/AKedOLRUgn_gayR2zx3IIescCk47_FgH38AG3WhQrs4N=s176-c-k-c0x00ffffff-no-rj-mo">
+              <br><br><strong>삶은배당</strong>
+              <p>배당금을 통한 파이어족 달성을 목표로 미국 배당성장주에 투자하는 여정을 공유하는 채널. 미국 배당성장주에 대한 견해와 파이어족을 달성하기 위한 본인의 마음가짐 등을 진솔하게 표현한다.</p>
+              <a href="https://www.youtube.com/c/%EC%82%B6%EC%9D%80%EB%B0%B0%EB%8B%B9%EB%AF%B8%EA%B5%AD%EB%B0%B0%EB%8B%B9%ED%8C%8C%EC%9D%B4%EC%96%B4%EC%A1%B1" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+            <div class="col-lg-4 custom-card">
+              <img src="https://yt3.ggpht.com/ytc/AKedOLTrs0Z18YOWTlNn4436qk8dkvQ3ACT7JGuz--5wig=s176-c-k-c0x00ffffff-no-rj-mo">
+              <br><br><strong>삼프로TV</strong>
+              <p>현업으로 뛰고 있는 전문가들이 매일 국내 및 해외 증시 현황과 이슈에 대해 공유하는 채널. 기초적인 경제 지식부터 상세한 투자 스킬 및 종목에 대한 안목까지 두루 기를 수 있다.</p>
+              <a href="/calculator/dividend/" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+            <div class="col-lg-4 custom-card">
+              <img src="https://yt3.ggpht.com/ytc/AKedOLS4ur4hLCdtoRGgypukJomdeewH47wASke2gWAu5g=s176-c-k-c0x00ffffff-no-rj-mo">
+              <br><br><strong>신사임당</strong>
+              <p>이 시대를 살아가는 많은 회사원들에게 소자본 창업 및 부업에 대한 영감을 주었던 채널. 무자본/소자본 스마트스토어 창업 열풍을 일으킨 장본인으로, 주식과 부동산 등을 주제로 패널들을 초대하여 이야기한다.</p>
+              <a href="/calculator/asset" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+        </div>
+        <hr>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542" crossorigin="anonymous"></script>
+        <!-- 샐러리버프-랜딩-상단 -->
+        <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-3913910396873542"
+              data-ad-slot="5912745344"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+        <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        <hr>
+        <div class="row">
+          <div class="col justify-content-center">
+            <h3>파이어족을 위한 계산기</h3>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 custom-card">
+              <strong>조기은퇴 계산기(심플버전)⛳️</strong>
+              <p>현재의 여유 자금을 투자했을 때 벌어들이는 수익을 재투자 했을 때, 미래의 현금흐름과 현재의 지출이 일치하는 시점을 계산</p>
+              <a href="/calculator/retire" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+            <div class="col-lg-4 custom-card">
+              <strong>조기은퇴 계산기(배당모델)🏦</strong>
+              <p>매년 적립식으로 배당주에 투자했을 때, 월 배당금과 미래의 월 예상 지출이 일치하는 시점을 계산해 은퇴시점을 알아내는 계산기</p>
+              <a href="/calculator/dividend/" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+            <div class="col-lg-4 custom-card">
+              <strong>노후자금 계산기🏌🏼‍♂️</strong>
+              <p>보유중인 자금으로 추가 현금흐름 없이 은퇴 생활을 즐길 수 있는 기간을 계산</p>
+              <a href="/calculator/asset" role="button" class="btn btn-primary" style="color: white;">바로가기 →</a>
+            </div>
+        </div>
+        <hr>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542" crossorigin="anonymous"></script>
+        <!-- 샐러리버프-랜딩-하단 -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-3913910396873542"
+            data-ad-slot="1865057572"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+      <footer>
+        <div style="font-size:12px; margin-bottom:15px;">
+          <a href="/">샐러리버프 홈으로</a>
+        </div>
+        <div>
+          <span style="font-size:12px;">월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프</span><br>
+          <span style="font-size:10px;">© 2021 샐러리버프, All Rights Reserved.</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+  </body>
 </html>

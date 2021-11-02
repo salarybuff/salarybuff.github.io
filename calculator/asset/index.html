@@ -1,0 +1,266 @@
+<html>
+
+<head>
+    <!-- Title -->
+    <title>샐러리버프 | 월급에 날개를 달자. 파이어족을 위한 모든 것</title>
+
+    <!-- Meta -->
+    <meta name="keywords" content="샐러리버프, salarybuff, 파이어, 파이어족, 월급, 투자, 투자정보, 부동산, 코인, 부업, 커뮤니티, 조기은퇴, 계산기">
+    <meta name="naver-site-verification" content="8f03d729faec41530d9a2982f996f3e97d13d79c" />
+
+    <meta name="application-name" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+    <meta name="msapplication-tooltip" content="샐러리버프 | 파이어족 추천 컨텐츠">
+    <meta name="description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+
+    <meta property="og:title" content="샐러리버프 | 월급에 날개를 달자. 파이어족을 위한 모든 것">
+    <meta property="og:image:alt" content="샐러리버프 | 월급에 날개를 달자. 파이어족을 위한 모든 것">
+    <meta property="og:description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+    <meta property="og:url" content="https://salarybuff.net">
+    <meta property="og:site_name" content="샐러리버프">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:image" content="https://salarybuff.net/img/logo-en.png">
+
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:creator" content="@salarybuff">
+    <meta property="twitter:title" content="샐러리버프 | 월급에 날개를 달자. 파이어족을 위한 모든 것">
+    <meta property="twitter:description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1">
+
+    <meta property="al:web:url" content="https://salarybuff.net">
+    <link rel="canonical" href="https://salarybuff.net">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://salarybuff.net/img/favicon.png">
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="/../style.css">
+
+    <script type="text/javascript">
+        function calculate() {
+            let currentAsset = parseInt(document.getElementById("calculator-retire-curr_asset").value);
+            let annualInvRate = parseFloat(document.getElementById("calculator-retire-annual_inv_rate").value) / 100;
+            let monthlyFreeCash = parseInt(document.getElementById("calculator-retire-monthly_fc").value);
+            let annualnflation = parseFloat(document.getElementById("calculator-retire-annual_inflation").value) / 100;
+            let monthlyTargetCost = parseInt(document.getElementById("calculator-retire-monthly_target_cost").value);
+
+            console.log(annualInvRate);
+
+            // first month asset
+            let futureAsset = currentAsset + monthlyFreeCash - monthlyTargetCost;
+            let month = 1;
+            let year = 0;
+
+            let table = document.getElementById("result-table");
+
+            table.innerHTML = "";
+            table.innerHTML = `
+            <tr>
+                <th>연차</th>
+                <th>연말 보유 자산</th>
+                <th>연말 월 수익</th>
+                <th>연말 월 지출</th>
+            </tr>
+        `;
+
+            let doLoop = true;
+
+            if (isNaN(currentAsset) || isNaN(annualInvRate) || isNaN(monthlyFreeCash) || isNaN(annualnflation) || isNaN(monthlyTargetCost)) {
+                alert('데이터를 입력해주세요.');
+                doLoop = false;
+            }
+
+            while (doLoop) {
+                if (futureAsset < 0) {
+                    document.getElementById('result1').innerText = `${year}년 ${month - year * 12}개월`;
+                    document.getElementById('result2').innerText = `${Number(Math.round(futureAsset)).toLocaleString()}`;
+                    document.getElementById('result3').innerText = `${Number(Math.round(futureAsset * annualDivRate / 12)).toLocaleString()}`;
+
+                    doLoop = false;
+                    break;
+                }
+
+                if (month / 12 >= year + 1) {
+                    // increment year
+                    year = year + 1;
+
+                    // Update table
+                    let row = table.insertRow(year);
+                    row.insertCell(0).innerHTML = `${year} 년`;
+                    row.insertCell(1).innerHTML = `${Number(Math.round(futureAsset)).toLocaleString()} 만 원`;
+                    row.insertCell(2).innerHTML = `${Number(Math.round(futureAsset * annualInvRate / 12 + monthlyFreeCash)).toLocaleString()} 만 원`;
+                    row.insertCell(3).innerHTML = `${Number(Math.round(monthlyTargetCost * Math.pow(1 + annualnflation, month / 12))).toLocaleString()} 만 원`;
+                }
+
+                if (year > 100) {
+                    alert('축하합니다. 현재 상태로는 100년이 지나도 자산이 줄지 않습니다.');
+                    doLoop = false;
+                }
+
+                //update future capital
+                futureAsset = futureAsset + monthlyFreeCash + futureAsset * annualInvRate / 12 - monthlyTargetCost * Math.pow(1 + annualnflation, month / 12);
+
+                //increment month
+                month = month + 1;
+
+            }
+        }</script>
+</head>
+
+<body>
+    <div class="thema-wrapper">
+        <div class="navbar">
+            <a id="main-logo-wrapper" href="/">
+                <img id="main-logo" srcset="https://salarybuff.net/img/main-mobile.png 250w,
+                                      https://salarybuff.net/img/main.png 500w" sizes="(max-width: 414px) 125px, 250px"
+                    src="https://salarybuff.net/img/main.png" alt="salarybuff.net main logo">
+            </a>
+        </div>
+
+        <!-- main body -->
+        <div style="padding:15px;">
+            <div>
+                <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542"
+                    crossorigin="anonymous"></script>
+                <!-- 샐러리버프-계산기-div-상단 -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3913910396873542"
+                    data-ad-slot="8310650308" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <h3>노후자금(은퇴자금) 계산기🏌🏼‍♂️</h3>
+                    <span>보유중인 자금으로 은퇴 생활을 즐길 수 있는 기간을 계산</span>
+                    <span style="font-size:smaller;">(🔔 입력값, 결과값은 서버에 저장하지 않음🚫)</span>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="row" style="display:flex; margin:2px">
+                        <div class="col-md-7"
+                            style="border:gray; border-style: solid; border-width: 0.5px; padding: 20px;">
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[1] 현재 보유 중인
+                                노후자금(은퇴자금) 총액</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text input-group-text-head">총 금액</span>
+                                <input id="calculator-retire-curr_asset" type="number" step="any" class="form-control"
+                                    placeholder="예) 100000">
+                                <span class="input-group-text input-group-text-tail">만 원</span>
+                            </div>
+
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[2] 노후자금을 통해 발생하는
+                                연간 투자수익률</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text input-group-text-head">연간 수익률</span>
+                                <input id="calculator-retire-annual_inv_rate" type="number" min="0" step="any"
+                                    class="form-control" value="3.8">
+                                <span class="input-group-text input-group-text-tail">%</span>
+                            </div>
+
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[3] 은퇴 후 매월 발생하는
+                                고정수익(연금 등)</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text input-group-text-head">월간 고정수익</span>
+                                <input id="calculator-retire-monthly_fc" type="number" class="form-control"
+                                    placeholder="예) 100">
+                                <span class="input-group-text input-group-text-tail">만 원</span>
+                            </div>
+
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[4] 은퇴 후 월간 기대
+                                지출</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text input-group-text-head">월간 지출</span>
+                                <input id="calculator-retire-monthly_target_cost" type="number" class="form-control"
+                                    placeholder="예) 400">
+                                <span class="input-group-text input-group-text-tail">만 원</span>
+                            </div>
+
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[5] 은퇴 후 연간 물가
+                                상승률</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text input-group-text-head">물가 상승률</span>
+                                <input id="calculator-retire-annual_inflation" type="number" min="0" step="any"
+                                    class="form-control" value="1.8">
+                                <span class="input-group-text input-group-text-tail">%</span>
+                            </div>
+
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">🔔 투자수익률은 현재 상태를
+                                유지한다고 가정</label>
+                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">🔔 물가상승률은 지출에만 영향을
+                                준다고 가정</label>
+
+                            <div style="display:flex; margin-top:20px; margin-left:auto;">
+                                <a href="javascript: calculate()" role="button" class="btn btn-primary"
+                                    style="color: white;">계산하기</a>
+                            </div>
+                        </div>
+                        <div class="col-md-5"
+                            style="background:white; border: black; border-style: solid; border-width: 1px; padding:15px;">
+                            <div>
+                                <span style="font-size:small">지금까지 모은 노후자금(은퇴자금)을 이용해 은퇴할 경우 노동을 하지 않아도 되는
+                                    기간은</span><br>
+                                <span id="result1" style="font-size:50px">0년 0개월</span><span style="font-size:50px">
+                                    입니다.</span><br>
+                            </div>
+                            <hr>
+                            <div>
+                                <table id="result-table"
+                                    style="padding: 0 5px; font-size: 15px; letter-spacing: -1px; width:100%;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:5px; margin-bottom:25px;">
+                    <div class="d-grid gap-2">
+                        <a href="../retire" role="button" class="btn btn-secondary" style="color: white;">[바로가기] 조기은퇴
+                            계산기(기본모델)⛳️</a>
+                        <a href="../dividend" role="button" class="btn btn-secondary" style="color: white;">[바로가기]
+                            조기은퇴 계산기(배당모델)🏦</a>
+                        <a href="../../" role="button" class="btn btn-secondary" style="color: white;">[바로가기] 샐러리버프🔥
+                            홈으로</a>
+                    </div>
+                </div>
+                <div>
+                    <script async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542"
+                        crossorigin="anonymous"></script>
+                    <!-- 샐러리버프-계산기-div-하단 -->
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3913910396873542"
+                        data-ad-slot="4931686228" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+
+        </div>
+        <footer>
+            <div style="font-size:12px; margin-bottom:15px;">
+                <a href="/">샐러리버프 홈으로</a>
+            </div>
+            <div>
+                <span style="font-size:12px;">월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프</span><br>
+                <span style="font-size:10px;">© 2021 샐러리버프, All Rights Reserved.</span>
+            </div>
+        </footer>
+    </div>
+    </div>
+</body>
+
+</html>
