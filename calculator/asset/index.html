@@ -70,8 +70,6 @@
             let annualnflation = parseFloat(document.getElementById("calculator-retire-annual_inflation").value) / 100;
             let monthlyTargetCost = parseInt(document.getElementById("calculator-retire-monthly_target_cost").value);
 
-            console.log(annualInvRate);
-
             // first month asset
             let futureAsset = currentAsset + monthlyFreeCash - monthlyTargetCost;
             let month = 1;
@@ -226,7 +224,7 @@
                                 준다고 가정</label>
 
                             <div style="display:flex; margin-top:20px; margin-left:auto;">
-                                <a href="javascript: calculate()" role="button" class="btn btn-primary"
+                                <a id="calc-asset" href="javascript: calculate()" role="button" class="btn btn-primary"
                                     style="color: white;">계산하기</a>
                             </div>
                         </div>
