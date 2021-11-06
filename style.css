@@ -699,16 +699,6 @@ footer {
         padding-bottom: 20px;
     }
 
-    .navbar-row-bbs {
-        display:none;
-        visibility: hidden;
-    }
-
-    .navbar-row-admin {
-        display:none;
-        visibility: hidden;
-    }
-
     .navbar-row-mobile {
         width: 100%;
         height: 54px;
