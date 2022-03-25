@@ -5,8 +5,6 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
 <url>
   <loc>https://salarybuff.net/</loc>
   <lastmod>2021-11-02T08:29:43+00:00</lastmod>
@@ -32,31 +30,4 @@
   <lastmod>2021-11-02T08:29:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://salarybuff.net/#recommend-youtube</loc>
-  <lastmod>2021-11-02T08:29:43+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://salarybuff.net/#recommend-youtube</loc>
-  <lastmod>2021-11-02T08:29:43+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://salarybuff.net/#recommend-app</loc>
-  <lastmod>2021-11-02T08:29:43+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://salarybuff.net/#recommend-book</loc>
-  <lastmod>2021-11-02T08:29:43+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://salarybuff.net/#calculator</loc>
-  <lastmod>2021-11-02T08:29:43+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-
-
 </urlset>
