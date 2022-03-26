@@ -27,10 +27,8 @@ div.title {
     margin-bottom:1rem;
 }
 
-
-hr {
-    margin-bottom:2rem;
-    margin-top:2rem;
+.body-container {
+    padding:15px;
 }
 
 .notice-card {
@@ -66,7 +64,12 @@ hr {
     margin-right: auto;
 }
 
-
+.form-control {
+    padding:0.1rem 0.45rem;
+    border-radius: 0;
+    width: 100%;
+    text-align: right;
+}
 
 body{
     width: auto;
@@ -200,14 +203,19 @@ a:link, a:visited {
     border-radius: 3px;
 }
 
+
 .button {
-    padding: 10px;
+    padding: 5px;
+    width:100%;
+    margin:1px;
     border: none;
+    border-radius: 0.25rem;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
     transition: 0.3s;
+    background-color: lightgray;
 }
 
 .selected {
@@ -224,9 +232,9 @@ a:link, a:visited {
 }
 
 .button:hover {
-    background-color: #C0392B;
+    background-color: #EC7063;
     color: white;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .button-wrap > .button-badge {
@@ -654,6 +662,44 @@ footer {
     margin-right: 2px;
 }
 
+.input-group-table {
+    position:relative;
+    text-align: left;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.result-group-table {
+    position:relative;
+    text-align: left;
+    align-items: center;
+    white-space: nowrap;
+    letter-spacing:-1px;
+    width:100%;
+}
+
+#result-table {
+    text-align:right;
+}
+
+
+td.type {
+    padding-right:5px;
+    text-align: left;
+    max-width:3rem;
+}
+
+td.value {
+    text-align: right;
+    width:100%;
+}
+
+td.unit {
+    text-align: center;
+    max-width:3rem;
+}
+
 .input-group-text {
     padding: .1rem .3rem;
 }
@@ -669,6 +715,7 @@ footer {
 }
 
 @media (max-width: 992px) {
+
     #main-logo-wrapper {
         margin-right: auto;
         margin-left: 15px;
@@ -676,6 +723,14 @@ footer {
 
     .input-group-text{
         width:auto;
+        font-size:smaller;
+    }
+
+    .input-group-table{
+        font-size:smaller;
+    }
+
+    .result-group-table{
         font-size:smaller;
     }
 
@@ -736,6 +791,11 @@ footer {
         padding: 0px;
         padding-top: 20px;
         padding-bottom: 20px;
+    }
+
+    hr {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 
     .navbar-row-mobile {
@@ -804,6 +864,18 @@ footer {
 
     .button {
         font-size: 13px;
+    }
+
+    td.type {
+        max-width:6rem;
+    }
+    
+    td.unit {
+        max-width:6rem;
+    }
+
+    h3 {
+        font-size:medium;
     }
 }
 
