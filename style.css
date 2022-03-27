@@ -448,12 +448,12 @@ footer {
 }
 
 .bread-buttons {
-
     background-color: gainsboro;
     display:flex;
     width:100%;
     flex-wrap: nowrap;
     align-items: center;
+    padding-left:10px;
 }
 
 .navbar {

@@ -93,15 +93,15 @@
     <div class="body-container">
       <div style="display:flex">
         <h3>조기은퇴 계산기⛳️</h3>
-        <div style="position:relative; display:flex; margin-left:auto; margin-right:0px;">
-          <a style="font-size:x-small" href="javascript: reset()">초기화</a>
-        </div>
       </div>
       <div style="font-size:smaller">
         <span>조기은퇴(파이어)를 위한 필수조건은 자본투자에 의한 현금흐름의 최대화와 지출의 최소화입니다.
           <strong>조기은퇴 계산기</strong>는 매월 일정 금액을 투자할 때 <strong>목표한 목돈을 만드는데 걸리는 시간</strong>을 계산합니다.
           또한, 이렇게 만들어진 목돈을 매달 목표한 금액으로 지출했을 경우 <strong>총 몇 년 간 추가 수입 없이 생활을 할 수 있는지</strong> 계산합니다.
         </span>
+        <div style="display:flex; margin-top:10px;">
+          <a style="font-size:smaller; margin-left:auto; margin-right:0;" href="javascript: reset()">초기화</a>
+        </div>
       </div>
       <hr>
       <div>
@@ -178,7 +178,6 @@
         <a id="calc-retire" href="javascript: calculate()" role="button" class="btn btn-primary"
           style="color: white; margin-left:auto; width:100%;">계산하기 <small>↵</small></a>
       </div>
-
       <hr>
       <div>
         <table class="result-group-table">
@@ -212,9 +211,9 @@
       </div>
       <hr>
       <div>
-        <a type="button" id="retire-to-div" role="button" href="../dividend" class="button"> 주식배당을 통한 조기은퇴도 계산해볼까요?</a>
+        <a id="retire-to-div" href="../dividend" class="button"> 주식배당을 통한 조기은퇴도 계산해볼까요?</a>
         <br>
-        <a type="button" id="retire-to-landing" role="button" href="../../" class="button">샐러리버프 홈으로 가기</a>
+        <a id="retire-to-landing" href="../../" class="button">샐러리버프 홈으로 가기</a>
       </div>
     </div>
     <div class="row" style="display:flex; margin:2px">
