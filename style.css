@@ -212,9 +212,9 @@ a:link, a:visited {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     transition: 0.3s;
-    background-color: lightgray;
+    background-color: gainsboro;
 }
 
 .selected {
@@ -273,14 +273,15 @@ a:link, a:visited {
 
 .custom-badge {
     display: inline-block;
-    padding: .35em .65em;
-    font-size: 10px;
+    padding: .35em;
+    font-size: 0.9em;
     line-height: 1;
-    color: #fff;
+    color: black;
     text-align: center;
     white-space: nowrap;
+    text-decoration: none;
     vertical-align: baseline;
-    border-radius: .5rem;
+    cursor:grab;
 }
 
 .shadow {
@@ -444,6 +445,15 @@ footer {
     box-shadow: 0 0 0 2px var(--white,#fff);
     text-align: center;
     padding: 1px 3px 1px 3px;
+}
+
+.bread-buttons {
+
+    background-color: gainsboro;
+    display:flex;
+    width:100%;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .navbar {
@@ -671,8 +681,8 @@ footer {
 
 .result-group-table {
     position:relative;
-    text-align: left;
     align-items: center;
+    text-align: left;
     white-space: nowrap;
     letter-spacing:-1px;
     width:100%;
@@ -682,21 +692,40 @@ footer {
     text-align:right;
 }
 
+.popup-desc{
+    z-index:100;
+    padding: 10px;
+    min-height:100px;
+    background-color:white;
+    border-radius: 5px;
+    align-items: end;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+    position:absolute; 
+    display:none;
+    max-width:300px;
+    white-space: pre-wrap;
+}
+
+.close-icon {
+    margin-left:auto;
+    margin-right:5px;
+    cursor:grab;
+}
 
 td.type {
     padding-right:5px;
-    text-align: left;
-    max-width:3rem;
+    min-width: 120px;
+    width: 20%
 }
 
 td.value {
     text-align: right;
-    width:100%;
 }
 
 td.unit {
-    text-align: center;
-    max-width:3rem;
+    text-align: left;
+    width:10%;
+    min-width: 60px;
 }
 
 .input-group-text {
@@ -862,7 +891,8 @@ td.unit {
     }
 
     .button {
-        font-size: 13px;
+        font-size: 14px;
+        margin-right:15px;
     }
 
     td.type {
@@ -871,6 +901,13 @@ td.unit {
     
     td.unit {
         max-width:6rem;
+    }
+
+    .popup-desc{
+        padding:5px;
+        font-size:smaller;
+        min-height:60px;
+        align-items:start;
     }
 
 }

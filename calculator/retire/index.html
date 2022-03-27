@@ -14,7 +14,8 @@
 
   <meta property="og:title" content="샐러리버프 | 조기은퇴 계산기⛳️">
   <meta property="og:image:alt" content="샐러리버프 | 조기은퇴 계산기⛳️">
-  <meta property="og:description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+  <meta property="og:description" content="조기은퇴 계산기는 매월 일정 금액을 투자할 때 목표한 목돈을 만드는데 걸리는 시간을 계산합니다.
+  또한, 이렇게 만들어진 목돈을 매달 목표한 금액으로 지출했을 경우 총 몇 년 간 추가 수입 없이 생활할 수 있는지 계산합니다.">
   <meta property="og:url" content="https://salarybuff.net/calculator/retire">
   <meta property="og:site_name" content="샐러리버프">
   <meta property="og:type" content="website">
@@ -62,104 +63,8 @@
   <!-- Style -->
   <link rel="stylesheet" href="/../style.css">
 
-  <script type="text/javascript">
-    function calculate() {
-      let currentAsset = parseInt(document.getElementById("calculator-retire-curr_asset").value);
-      let annualProfitRate = parseFloat(document.getElementById("calculator-retire-annual_profit_rate").value) / 100;
-      let monthlyFreeCash = parseInt(document.getElementById("calculator-retire-monthly_fc").value);
-      // let annualFreeCashGrowthRate = parseFloat(document.getElementById("calculator-retire-fc_annual_growth").value) / 100;
-      let targetCost = parseInt(document.getElementById("calculator-retire-target_cost").value);
-
-      let annualFreeCash = monthlyFreeCash * 12;
-      let year = 0;
-
-      // first year capital
-      let futureCapital = currentAsset * (1 + annualProfitRate) + annualFreeCash;
-      let table = document.getElementById("result-table");
-
-      table.innerHTML = "";
-      table.innerHTML = `
-            <tr>
-                <th>연차</th>
-                <th>총 보유 자산</th>
-                <th>월간 현금 흐름</th>
-            </tr>
-        `;
-
-      let doLoop = true;
-
-      if (isNaN(currentAsset) || isNaN(annualProfitRate) || isNaN(monthlyFreeCash) || isNaN(targetCost)) {
-        alert('데이터를 입력해주세요.');
-        doLoop = false;
-      }
-
-      while (doLoop) {
-        if (annualProfitRate > 0) {
-          if (futureCapital * annualProfitRate / 12 >= targetCost) {
-            // Update table
-            let row = table.insertRow(year + 1);
-            row.insertCell(0).innerHTML = `🔥 ${year + 1} 년`;
-            row.insertCell(1).innerHTML = `${Number(Math.round(futureCapital)).toLocaleString()} 만 원`;
-            row.insertCell(2).innerHTML = `${Number(Math.round(futureCapital * annualProfitRate / 12)).toLocaleString()} 만 원`;
-
-            document.getElementById('result1').innerText = `${year + 1}`;
-            document.getElementById('result2').innerText = `(+) ${Number(Math.round(futureCapital)).toLocaleString()}`;
-            document.getElementById('result3').innerText = `(+) ${Number(Math.round(futureCapital * annualProfitRate / 12)).toLocaleString()}`;
-
-
-            let resultContainer = document.getElementById('result-table-container');
-            if (resultContainer.style.display === 'none') {
-              resultContainer.style.display = 'block';
-            }
-
-            doLoop = false;
-            break;
-          }
-        } else {
-          alert('죄송합니다. 자산을 통한 소득이 없으면 은퇴는 불가능합니다.');
-          doLoop = false;
-          break;
-        }
-
-        // Update table
-        let row = table.insertRow(year + 1);
-        row.insertCell(0).innerHTML = `${year + 1} 년`;
-        row.insertCell(1).innerHTML = `${Number(Math.round(futureCapital)).toLocaleString()} 만 원`;
-        row.insertCell(2).innerHTML = `${Number(Math.round(futureCapital * annualProfitRate / 12)).toLocaleString()} 만 원`;
-
-        //update future capital
-        futureCapital = futureCapital * (1 + annualProfitRate) + annualFreeCash * Math.pow((1), year);
-
-        //increment year
-        year = year + 1;
-
-        if (year > 100) {
-          alert('죄송합니다. 현재 상태로는 100년이 지나도 은퇴할 수 없습니다.');
-          doLoop = false;
-        }
-      }
-    }
-
-    function reset() {
-      document.getElementById("calculator-retire-curr_asset").value = '';
-      document.getElementById("calculator-retire-annual_profit_rate").value = 3;
-      document.getElementById("calculator-retire-monthly_fc").value = '';
-      document.getElementById("calculator-retire-target_cost").value = '';
-
-      document.getElementById('result1').innerText = '0';
-      document.getElementById('result2').innerText = `(+) 0`;
-      document.getElementById('result3').innerText = `(+) 0`;
-
-      let resultContainer = document.getElementById('result-table-container');
-      if (resultContainer.style.display !== 'none') {
-        resultContainer.style.display = 'none';
-        let table = document.getElementById("result-table");
-        table.innerHTML = '';
-      }
-
-    }
-
-  </script>
+  <!-- Script -->
+  <script type="text/javascript" src="/calculator/retire/script.js"></script>
 </head>
 
 <body>
@@ -178,34 +83,50 @@
           src="https://salarybuff.net/img/main.png" alt="salarybuff.net main logo">
       </a>
     </div>
+    <div class="bread-buttons" style="font-size:smaller">
+      <a href="../../"><span class="button">샐러리버프</span></a><span> / </span>
+      <a href="../../#calculator"><span class="button">파이어족 계산기</span></a><span> / </span>
+      <a href="/calculator/retire"><span class="button">조기은퇴 계산기⛳️</span></a>
+    </div>
 
     <!-- main body -->
     <div class="body-container">
       <div style="display:flex">
         <h3>조기은퇴 계산기⛳️</h3>
-        <div
-          style="position:relative; display:flex; margin-left:auto; margin-right:0px;">
+        <div style="position:relative; display:flex; margin-left:auto; margin-right:0px;">
           <a style="font-size:x-small" href="javascript: reset()">초기화</a>
         </div>
       </div>
       <div style="font-size:smaller">
-        <span>조기은퇴(파이어)를 위한 필수조건은 자본투자에 의한 현금흐름의 최대화와 지출의 최소화입니다. 
-              <strong>조기은퇴 계산기</strong>는 매월 일정 금액을 현금흐름이 발생하는 투자<small>(배당주, 채권 등)</small>에 투입한다고 가정했을 때 발생하는 현금흐름을 계산합니다.
-              본 계산기는 <strong>매월 발생하는 현금흐름이 설정한 월 지출과 일치하게 될 때</strong> 조기은퇴가 가능하다고 가정합니다.</span>
-
+        <span>조기은퇴(파이어)를 위한 필수조건은 자본투자에 의한 현금흐름의 최대화와 지출의 최소화입니다.
+          <strong>조기은퇴 계산기</strong>는 매월 일정 금액을 투자할 때 <strong>목표한 목돈을 만드는데 걸리는 시간</strong>을 계산합니다.
+          또한, 이렇게 만들어진 목돈을 매달 목표한 금액으로 지출했을 경우 <strong>총 몇 년 간 추가 수입 없이 생활을 할 수 있는지</strong> 계산합니다.
+        </span>
       </div>
       <hr>
       <div>
         <table class="input-group-table">
           <tr>
-            <td class="type">보유 현금</td>
+            <td class="type">보유 자산
+              <a class="custom-badge" onClick="showPopup('popup-desc-curr-asset')">ⓘ</a>
+              <div id="popup-desc-curr-asset" class="popup-desc">
+                <div>현재 보유 중인 자산으로, 투자에 사용할 수 있는 여유 현금 혹은 이미 투자된 자산</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-curr-asset')">[닫기]</a>
+              </div>
+            </td>
             <td>
               <input id="calculator-retire-curr_asset" type="number" class="form-control" placeholder="예) 1000">
             </td>
             <td class="unit">만 원</td>
           </tr>
           <tr>
-            <td class="type">연간 기대수익률</td>
+            <td class="type">목표 수익율
+              <a class="custom-badge" onClick="showPopup('popup-desc-target-profit')">ⓘ</a>
+              <div id="popup-desc-target-profit" class="popup-desc">
+                <div>투자를 통한 연간 목표 수익율로 주식 배당율, 채권 이자율, 예금 금리, 월세 등을 포함</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-target-profit')">[닫기]</a>
+              </div>
+            </td>
             <td>
               <input id="calculator-retire-annual_profit_rate" type="number" step="any" min="0" class="form-control"
                 value="3">
@@ -213,16 +134,41 @@
             <td class="unit">%</td>
           </tr>
           <tr>
-            <td class="type">월 투자 금액</td>
+            <td class="type">월 투자 금액
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-investment')">ⓘ</a>
+              <div id="popup-desc-monthly-investment" class="popup-desc">
+                <div>매월 투자에 투입할 수 있는 여유자금 혹은 목표 여유자금</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-investment')">[닫기]</a>
+              </div>
+            </td>
             <td>
               <input id="calculator-retire-monthly_fc" type="number" class="form-control" placeholder="예) 100">
             </td>
             <td class="unit">만 원</td>
           </tr>
           <tr>
-            <td class="type">월 지출</td>
+            <td class="type">목표 금액
+              <a class="custom-badge" onClick="showPopup('popup-desc-target')">ⓘ</a>
+              <div id="popup-desc-target" class="popup-desc">
+                <div>달성 시 조기은퇴(파이어)가 가능할 것으로 예상하는 목표 금액</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-target')">[닫기]</a>
+              </div>
+            </td>
             <td>
-              <input id="calculator-retire-target_cost" type="number" class="form-control" placeholder="예) 200">
+              <input id="calculator-retire-target_seed" type="number" class="form-control" placeholder="예) 50000">
+            </td>
+            <td class="unit">만 원</td>
+          </tr>
+          <tr>
+            <td class="type">은퇴 후 월 지출
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-cost')">ⓘ</a>
+              <div id="popup-desc-monthly-cost" class="popup-desc">
+                <div>조기은퇴 시 예상되는 월간 총 지출 금액 (현재 월 지출 입력 무방)</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-cost')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-target_monthly_cost" type="number" class="form-control" placeholder="예) 200">
             </td>
             <td class="unit">만 원</td>
           </tr>
@@ -230,7 +176,7 @@
       </div>
       <div style="display:flex; margin-top:10px; margin-left:auto;">
         <a id="calc-retire" href="javascript: calculate()" role="button" class="btn btn-primary"
-          style="color: white; margin-left:auto; width:100%;">계산하기</a>
+          style="color: white; margin-left:auto; width:100%;">계산하기 <small>↵</small></a>
       </div>
 
       <hr>
@@ -243,18 +189,20 @@
           </tr>
           <tr>
             <td class="type">은퇴 시 총 자산 :</td>
-            <td class="value red" id="result2">(+) 0</td>
+            <td class="value red" id="result2">0</td>
             <td class="unit">만 원</td>
           </tr>
           <tr>
-            <td class="type">월간 현금 흐름 :</td>
-            <td class="value red" id="result3">(+) 0</td>
-            <td class="unit">만 원</td>
+            <td class="type">파이어 가능 기간:</td>
+            <td class="value red" id="result3">0</td>
+            <td class="unit">년 간</td>
           </tr>
         </table>
       </div>
       <hr>
-      <span style="font-size:x-small">- 본 계산기는 투자에 의한 현금흐름을 전액 재투자하는 것으로 가정합니다.</span>
+      <span style="font-size:x-small">- 본 계산기는 투자에 의한 수익을 전액 재투자하는 것으로 가정합니다.</span>
+      <br>
+      <span style="font-size:x-small">- 본 계산기는 인플레이션을 반영하지 않습니다. 인플레이션 반영을 원하시면 목표 수익율에 인플레이션율을 더하시면 됩니다.</span>
       <br>
       <span style="font-size:x-small">- 계산을 위해 사용된 입력값과 결과값은 서버에 저장하지 않습니다.</span>
       <div id="result-table-container" style="display:none;">
