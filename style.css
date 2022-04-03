@@ -751,7 +751,7 @@ td.unit {
 
 @media (max-width: 700px) {
     .navbar-ad{
-        width:30vw;
+        display: none;
     }
 }
 
