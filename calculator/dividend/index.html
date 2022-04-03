@@ -2,19 +2,19 @@
 
 <head>
     <!-- Title -->
-    <title>샐러리버프 | 조기은퇴 계산기(배당모델)🏦</title>
+    <title>샐러리버프 | 배당재투자 계산기🏦</title>
 
     <!-- Meta -->
     <meta name="keywords" content="샐러리버프, salarybuff, 파이어, 파이어족, 월급, 투자, 투자정보, 부동산, 코인, 부업, 커뮤니티, 조기은퇴, 계산기">
     <meta name="naver-site-verification" content="8f03d729faec41530d9a2982f996f3e97d13d79c" />
 
     <meta name="application-name" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
-    <meta name="msapplication-tooltip" content="샐러리버프 | 조기은퇴 계산기(배당모델)🏦">
+    <meta name="msapplication-tooltip" content="샐러리버프 | 배당재투자 계산기🏦">
     <meta name="description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
 
-    <meta property="og:title" content="샐러리버프 | 조기은퇴 계산기(배당모델)🏦">
-    <meta property="og:image:alt" content="샐러리버프 | 조기은퇴 계산기(배당모델)🏦">
-    <meta property="og:description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+    <meta property="og:title" content="샐러리버프 | 배당재투자 계산기🏦">
+    <meta property="og:image:alt" content="샐러리버프 | 배당재투자 계산기🏦">
+    <meta property="og:description" content="샐러리버프 배당재투자 계산기는 매월 일정 금액을 배당주에 투자할 때 목표한 월간 배당금을 만드는데 걸리는 시간을 계산합니다.">
     <meta property="og:url" content="https://salarybuff.net/calculator/dividend">
     <meta property="og:site_name" content="샐러리버프">
     <meta property="og:type" content="website">
@@ -23,8 +23,8 @@
 
     <meta property="twitter:card" content="summary">
     <meta property="twitter:creator" content="@salarybuff">
-    <meta property="twitter:title" content="샐러리버프 | 조기은퇴 계산기(배당모델)🏦">
-    <meta property="twitter:description" content="월급에 날개를 달자. 파이어족을 위한 모든 것, 샐러리버프">
+    <meta property="twitter:title" content="샐러리버프 | 배당재투자 계산기🏦">
+    <meta property="twitter:description" content="샐러리버프 배당재투자 계산기는 매월 일정 금액을 배당주에 투자할 때 목표한 월간 배당금을 만드는데 걸리는 시간을 계산합니다.">
 
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1">
 
@@ -62,78 +62,8 @@
     <!-- Style -->
     <link rel="stylesheet" href="/../style.css">
 
-    <script type="text/javascript">
-        function calculate() {
-            let currentAsset = parseInt(document.getElementById("calculator-retire-curr_asset").value);
-            let annualDivRate = parseFloat(document.getElementById("calculator-retire-annual_div_rate").value) / 100;
-            let monthlyFreeCash = parseInt(document.getElementById("calculator-retire-monthly_fc").value);
-            let annualFreeCashGrowthRate = parseFloat(document.getElementById("calculator-retire-fc_annual_growth").value) / 100;
-            let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
-            let targetCost = parseInt(document.getElementById("calculator-retire-target_cost").value);
-
-            let annualFreeCash = monthlyFreeCash * 12;
-            let year = 0;
-
-            // first year capital
-            let futureCapital = currentAsset * (1 + annualDivRate) + annualFreeCash;
-            let table = document.getElementById("result-table");
-
-            table.innerHTML = "";
-            table.innerHTML = `
-            <tr>
-                <th>연차</th>
-                <th>총 보유 자산</th>
-                <th>월 평균 투자 수익</th>
-            </tr>
-        `;
-
-            let doLoop = true;
-
-            if (isNaN(currentAsset) || isNaN(annualDivRate) || isNaN(monthlyFreeCash) || isNaN(annualFreeCashGrowthRate) || isNaN(annualDivGrowthRate) || isNaN(targetCost)) {
-                alert('데이터를 입력해주세요.');
-                doLoop = false;
-            }
-
-            while (doLoop) {
-                if (annualDivRate > 0) {
-                    if (futureCapital * annualDivRate / 12 >= targetCost) {
-                        // Update table
-                        let row = table.insertRow(year + 1);
-                        row.insertCell(0).innerHTML = `${year + 1} 년`;
-                        row.insertCell(1).innerHTML = `${Number(Math.round(futureCapital)).toLocaleString()} 만 원`;
-                        row.insertCell(2).innerHTML = `${Number(Math.round(futureCapital * annualDivRate / 12)).toLocaleString()} 만 원`;
-
-                        document.getElementById('result1').innerText = `${year + 1}`;
-                        document.getElementById('result2').innerText = `${Number(Math.round(futureCapital)).toLocaleString()}`;
-                        document.getElementById('result3').innerText = `${Number(Math.round(futureCapital * annualDivRate / 12)).toLocaleString()}`;
-
-                        doLoop = false;
-                        break;
-                    }
-                } else {
-                    alert('죄송합니다. 본 모델에서는 배당 소득이 없으면 은퇴가 불가능합니다.');
-                    doLoop = false;
-                    break;
-                }
-
-                // Update table
-                let row = table.insertRow(year + 1);
-                row.insertCell(0).innerHTML = `${year + 1} 년`;
-                row.insertCell(1).innerHTML = `${Number(Math.round(futureCapital)).toLocaleString()} 만 원`;
-                row.insertCell(2).innerHTML = `${Number(Math.round(futureCapital * annualDivRate / 12)).toLocaleString()} 만 원`;
-
-                //update future capital
-                futureCapital = futureCapital + futureCapital * annualDivRate * (1 + annualDivGrowthRate) + annualFreeCash * Math.pow((1 + annualFreeCashGrowthRate), year);
-
-                //increment year
-                year = year + 1;
-
-                if (year > 100) {
-                    alert('죄송합니다. 현재 상태로는 100년이 지나도 은퇴할 수 없습니다.');
-                    doLoop = false;
-                }
-            }
-        }</script>
+    <!-- Script -->
+    <script type="text/javascript" src="/calculator/dividend/script.js"></script>
 </head>
 
 <body>
@@ -154,145 +84,161 @@
         </div>
 
         <!-- main body -->
-        <div style="padding:15px;">
-            <div class="container">
-                <div class="row">
-                    <h3>조기은퇴 계산기(배당모델)🏦</h3>
-                    <span>투자한 주식의 배당금과 지출이 일치하는 시점을 계산</span>
-                    <span style="font-size:smaller;">(🔔 입력값, 결과값은 서버에 저장하지 않음🚫)</span>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="row" style="display:flex; margin:2px">
-                        <div class="col-md-7"
-                            style="border:gray; border-style: solid; border-width: 0.5px; padding: 20px;">
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[1] 현재 보유 중인 주식
-                                총액</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">총 평가액</span>
-                                <input id="calculator-retire-curr_asset" type="number" class="form-control"
-                                    placeholder="예) 1000">
-                                <span class="input-group-text input-group-text-tail">만 원</span>
-                            </div>
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[2] 보유 주식을 통해 발생하는
-                                연간
-                                배당률</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">연간 배당률</span>
-                                <input id="calculator-retire-annual_div_rate" type="number" min="0" step="any"
-                                    class="form-control" placeholder="예) 3">
-                                <span class="input-group-text input-group-text-tail">%</span>
-                            </div>
+    <div class="body-container">
+      <div style="display:flex">
+        <h3>배당재투자 계산기🏦</h3>
+      </div>
 
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[3] 매월 신규 배당주에 투자
-                                가능한
-                                여유자금</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">월간 추가 투입금</span>
-                                <input id="calculator-retire-monthly_fc" type="number" class="form-control"
-                                    placeholder="예) 5000">
-                                <span class="input-group-text input-group-text-tail">만 원</span>
-                            </div>
-
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[4] 투자 가능한 여유자금의
-                                연간 기대
-                                증가율</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">연간 증가율</span>
-                                <input id="calculator-retire-fc_annual_growth" type="number" min="0" step="any"
-                                    class="form-control" value="2">
-                                <span class="input-group-text input-group-text-tail">%</span>
-                            </div>
-
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[5] 보유한 주식의 연간 배당
-                                성장률</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">연간 성장률</span>
-                                <input id="calculator-retire-div_annual_growth" type="number" min="0"
-                                    class="form-control" value="5">
-                                <span class="input-group-text input-group-text-tail">%</span>
-                            </div>
-
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">[6] 은퇴 시점에 발생하는 월간
-                                지출</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text input-group-text-head">월간 지출</span>
-                                <input id="calculator-retire-target_cost" type="number" class="form-control"
-                                    placeholder="예) 3000">
-                                <span class="input-group-text input-group-text-tail">만 원</span>
-                            </div>
-
-                            <label class="form-label" style="margin-bottom: 0px; font-size: smaller;">🔔 배당률은 현재 상태를
-                                유지한다고 가정</label>
-
-                            <div style="display:flex; margin-top:20px; margin-left:auto;">
-                                <a id="calc-dividend" href="javascript: calculate()" role="button"
-                                    class="btn btn-primary" style="color: white; margin-left:auto;">계산하기</a>
-                            </div>
-                        </div>
-                        <div class="col-md-5"
-                            style="background:white; border: black; border-style: solid; border-width: 1px; padding:15px;">
-                            <div>
-                                <span style="font-size:small">지금부터 모든 여유 자금을 배당주에 재투자 할 때 은퇴 가능한 시기는</span><br>
-                                <span id="result1" style="font-size:50px">0</span><span style="font-size:50px"> 년 후
-                                    입니다.</span><br>
-                                <span>총 배당주 평가액</span><br>
-                                <span id="result2" style="font-size:50px">0</span><span style="font-size:50px"> 만
-                                    원으로,</span><br>
-                                <span>월 평균</span><br>
-                                <span id="result3" style="font-size:50px">0</span><span style="font-size:50px"> 만
-                                    원의</span><br>
-                                <span>배당 소득을 올릴 수 있습니다.</span>
-                            </div>
-                            <hr>
-                            <div>
-                                <table id="result-table"
-                                    style="padding: 0 5px; font-size: 15px; letter-spacing: -1px; width:100%;">
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:5px; margin-bottom:25px;">
-                    <div class="d-grid gap-2">
-                        <a id="div-to-retire" href="../retire" role="button" class="btn btn-secondary"
-                            style="color: white;">[바로가기] 조기은퇴
-                            계산기⛳️</a>
-                        <a id="div-to-asset" href="../asset" role="button" class="btn btn-secondary"
-                            style="color: white;">[바로가기] 노후자금
-                            계산기🏌🏼‍♂️</a>
-                        <a id="div-to-rent" href="../rent" role="button" class="btn btn-secondary"
-                            style="color: white;">[바로가기] 반전세(월세) 계산기🏠</a>
-                        <a id="div-to-recommend-youtube" href="../../#recommend-youtube" role="button"
-                            class="btn btn-secondary" style="color: white;">[바로가기] 추천
-                            파이어족 유튜브 채널</a>
-                        <a id="div-to-recommend-app" href="../../#recommend-app" role="button" class="btn btn-secondary"
-                            style="color: white;">[바로가기] 추천 파이어족
-                            App</a>
-                        <a id="div-to-recommend-book" href="../../#recommend-book" role="button"
-                            class="btn btn-secondary" style="color: white;">[바로가기] 추천 파이어족
-                            도서</a>
-                        <a id="div-to-landing" href="../../" role="button" class="btn btn-secondary"
-                            style="color: white;">[바로가기] 샐러리버프🔥
-                            홈</a>
-                    </div>
-                </div>
-                <div class="row" style="display:flex; margin:2px">
-                    <div class="col-md-12">
-                        <script async
-                            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542"
-                            crossorigin="anonymous"></script>
-                        <!-- 샐러리버프-계산기-div-상단 -->
-                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3913910396873542"
-                            data-ad-slot="8310650308" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-            </div>
-
+      <div style="font-size:smaller">
+        <span>조기은퇴(파이어)를 위한 필수조건은 자본투자에 의한 현금흐름의 최대화와 지출의 최소화입니다.
+          <strong>배당재투자 계산기</strong>는 매월 일정 금액을 배당주에 투자할 때 <strong>목표한 월간 배당금을 만드는데 걸리는 시간</strong>을 계산합니다.
+        </span>
+        <div style="display:flex; margin-top:10px;">
+          <a style="font-size:smaller; margin-left:auto; margin-right:0;" href="javascript: reset()">초기화</a>
         </div>
+      </div>
+
+      <hr>
+      
+      <div>
+        <table class="input-group-table">
+          <tr>
+            <td class="type">보유 자산
+              <a class="custom-badge" onClick="showPopup('popup-desc-curr-asset')">ⓘ</a>
+              <div id="popup-desc-curr-asset" class="popup-desc">
+                <div>현재 보유 중인 자산으로, 투자에 사용할 수 있는 여유 현금 혹은 이미 주식에 투자된 자산</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-curr-asset')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-curr_asset" type="number" class="form-control" placeholder="예) 1000">
+            </td>
+            <td class="unit">만 원</td>
+          </tr>
+          <tr>
+            <td class="type">연간 배당률
+              <a class="custom-badge" onClick="showPopup('popup-desc-target-profit')">ⓘ</a>
+              <div id="popup-desc-target-profit" class="popup-desc">
+                <div>배당주의 연간 배당률</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-target-profit')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-annual_div_rate" type="number" step="any" min="0" class="form-control"
+              placeholder="예) 4.0">
+            </td>
+            <td class="unit">%</td>
+          </tr>
+          <tr>
+            <td class="type">배당 성장률
+              <a class="custom-badge" onClick="showPopup('popup-desc-target')">ⓘ</a>
+              <div id="popup-desc-target" class="popup-desc">
+                <div>배당주의 배당금이 상향 조정되는 연간 비율</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-target')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-div_annual_growth" type="number" class="form-control" placeholder="예) 5.0">
+            </td>
+            <td class="unit">%</td>
+          </tr>
+          <tr>
+            <td class="type">월 추가 투입금
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-investment')">ⓘ</a>
+              <div id="popup-desc-monthly-investment" class="popup-desc">
+                <div>매월 투자에 투입할 수 있는 여유자금</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-investment')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-monthly_fc" type="number" class="form-control" placeholder="예) 100">
+            </td>
+            <td class="unit">만 원</td>
+          </tr>
+          <tr>
+            <td class="type">투입금 증가율
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-investment')">ⓘ</a>
+              <div id="popup-desc-monthly-investment-rate" class="popup-desc">
+                <div>매월 투자에 투입할 수 있는 여유자금의 연간 증가율</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-investment')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-fc_annual_growth" type="number" class="form-control" placeholder="예) 10.0">
+            </td>
+            <td class="unit">%</td>
+          </tr>
+          <tr>
+            <td class="type">목표 월 배당금
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-cost')">ⓘ</a>
+              <div id="popup-desc-monthly-cost" class="popup-desc">
+                <div>목표로 하는 월 배당금</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-cost')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-target_cost" type="number" class="form-control" placeholder="예) 200">
+            </td>
+            <td class="unit">만 원</td>
+          </tr>
+        </table>
+      </div>
+      <div style="display:flex; margin-top:10px; margin-left:auto;">
+        <a id="calc-retire" href="javascript: calculate()" role="button" class="btn btn-primary"
+          style="color: white; margin-left:auto; width:100%;">계산하기 <small>↵</small></a>
+      </div>
+      <hr>
+      <div>
+        <table class="result-group-table">
+          <tr>
+            <td class="type">목표 달성 시기 : </td>
+            <td class="value red" id="result1">0</td>
+            <td class="unit">년 후</td>
+          </tr>
+          <tr>
+            <td class="type">목표 달성 시 총 자산 :</td>
+            <td class="value red" id="result2">0</td>
+            <td class="unit">만 원</td>
+          </tr>
+          <tr>
+            <td class="type">목표 달성 후 월 배당금:</td>
+            <td class="value red" id="result3">0</td>
+            <td class="unit">만 원</td>
+          </tr>
+        </table>
+      </div>
+      <hr>
+      <span style="font-size:x-small">- 본 계산기는 투자에 의한 배당수익을 전액 재투자하는 것으로 가정합니다.</span>
+      <br>
+      <span style="font-size:x-small">- 본 계산기는 인플레이션을 반영하지 않습니다.</span>
+      <br>
+      <span style="font-size:x-small">- 계산을 위해 사용된 입력값과 결과값은 서버에 저장하지 않습니다.</span>
+      <div id="result-table-container" style="display:none;">
+        <hr>
+        <table class="result-group-table" id="result-table">
+        </table>
+      </div>
+      <hr>
+      <div>
+        <a id="retire-to-div" href="../retire" class="button"> 조기은퇴가 언제 가능한지 계산해볼까요?</a>
+        <br>
+        <a id="retire-to-landing" href="../../" class="button">샐러리버프 홈으로 가기</a>
+      </div>
+    </div>
+    <div class="row" style="display:flex; margin:2px">
+      <div class="col-md-12">
+        <script async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3913910396873542"
+          crossorigin="anonymous"></script>
+        <!-- 샐러리버프-계산기-retire-하단 -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3913910396873542"
+          data-ad-slot="8184334200" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+
         <footer>
             <div style="font-size:12px; margin-bottom:15px;">
                 <a href="/">샐러리버프 홈으로</a>
