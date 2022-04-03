@@ -70,7 +70,7 @@ function calculate() {
             if (startOfYearDividend / 12 >= targetCost) {
                 // Update table
                 let row = table.insertRow(year);
-                row.insertCell(0).innerHTML = `<strong>🔥월 배당 목표 달성 - ${year} 년</strong>`;
+                row.insertCell(0).innerHTML = `<strong>🔥목표 달성 - ${year} 년</strong>`;
                 row.insertCell(1).innerHTML = `<strong>${Number(Math.round(startOfYearDividend)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(2).innerHTML = `<strong>${Number(Math.round(endOfYearAsset)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(3).innerHTML = `<strong>${Number(Math.round(accuDividend)).toLocaleString()} 만 원</strong>`;
