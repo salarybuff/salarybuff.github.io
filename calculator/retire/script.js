@@ -1,3 +1,5 @@
+"use strict";
+
 window.addEventListener("keydown", (e) => {
     if (e.key === 'Enter' && e.isTrusted) {
         calculate();
