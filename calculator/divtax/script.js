@@ -118,7 +118,6 @@ function reset() {
     document.getElementById("calculator-divtax-annual_interest").value = '';
     document.getElementById("calculator-divtax-annual_dividend").value = '';
     document.getElementById("calculator-divtax-annual_deduction").value = '';
-    document.getElementById("calculator-divtax-region").value = '';
 
     document.getElementById('result1').innerText = '0';
     document.getElementById('result2').innerText = '0';
