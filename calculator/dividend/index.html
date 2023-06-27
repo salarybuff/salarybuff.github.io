@@ -198,6 +198,26 @@
             </td>
             <td class="unit">만 원</td>
           </tr>
+          <tr>
+            <td class="type">배당소득 발생 지역
+                <a class="custom-badge" onClick="showPopup('popup-desc-region')">ⓘ</a>
+                <div id="popup-desc-region" class="popup-desc">
+                    <div>배당 소득이 발생한 주식이 거래되고 있는 시장 혹은 국가</div>
+                    <a class="close-icon" onClick="closePopup('popup-desc-region')">[닫기]</a>
+                </div>
+            </td>
+            <td>
+                <div style="display:flex; background-color:white;" class="btn-group"
+                    id="calculator-retire-region" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" value="KOR" name="btnradio" id="btnradio_kor"
+                        autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnradio_kor">한국</label>
+                    <input type="radio" class="btn-check" value="USA" name="btnradio" id="btnradio_usa"
+                        autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio_usa">미국</label>
+                </div>
+            </td>
+        </tr>
         </table>
       </div>
       <div style="display:flex; margin-top:10px; margin-left:auto;">
@@ -218,8 +238,13 @@
             <td class="unit">만 원</td>
           </tr>
           <tr>
-            <td class="type">목표 달성 후 월 배당금:</td>
+            <td class="type">목표 달성 시 총 투자 원금 :</td>
             <td class="value red" id="result3">0</td>
+            <td class="unit">만 원</td>
+          </tr>
+          <tr>
+            <td class="type">목표 달성 후 월 배당금:</td>
+            <td class="value red" id="result4">0</td>
             <td class="unit">만 원</td>
           </tr>
         </table>
@@ -228,6 +253,8 @@
       <span style="font-size:x-small">- 본 계산기는 투자에 의한 배당수익을 전액 재투자하는 것으로 가정합니다.</span>
       <br>
       <span style="font-size:x-small">- 본 계산기는 인플레이션을 반영하지 않습니다.</span>
+      <br>
+      <span style="font-size:x-small">- 배당소득세가 계산에 반영되어 있으며 한국 선택 시 15.4%, 미국 선택 시 15%가 적용됩니다.</span>
       <br>
       <span style="font-size:x-small">- 계산을 위해 사용된 입력값과 결과값은 서버에 저장하지 않습니다.</span>
       <div id="result-table-container" style="display:none;">

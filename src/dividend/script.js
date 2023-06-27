@@ -24,6 +24,13 @@ function calculate() {
     let annualFreeCashGrowthRate = parseFloat(document.getElementById("calculator-retire-fc_annual_growth").value) / 100;
     let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
     let targetCost = parseInt(document.getElementById("calculator-retire-target_cost").value);
+    const taxRegion = document.querySelector('input[name="btnradio"]:checked').value;
+
+    let taxRate = 0;
+    if (taxRegion === 'USA') taxRate = 0.15;
+    else if (taxRegion === 'KOR') taxRate = 0.154;
+
+    console.log(taxRegion);
 
     let year = 1;
     let endOfYearAsset = 0;
@@ -32,6 +39,7 @@ function calculate() {
     let startOfYearDividend = 0;
     let monthlyDividend = 0;
     let accuDividend = 0;
+    let accuSeed = currentAsset;
 
     let annualFreeCash = monthlyFreeCash * 12;
 
@@ -40,10 +48,11 @@ function calculate() {
     table.innerHTML = "";
     table.innerHTML = `
             <tr>
-                <th style="width:25%">연차</th>
-                <th style="width:25%">연초 배당금</th>
-                <th style="width:25%">연말 보유 자산</th>
-                <th style="width:25%">누적 재투자 배당금</th>
+                <th style="width:20%">연차</th>
+                <th style="width:20%">연초 배당금</th>
+                <th style="width:20%">연말 보유 자산</th>
+                <th style="width:20%">누적 투자 원금</th>
+                <th style="width:20%">누적 재투자 배당금</th>
             </tr>
         `;
 
@@ -63,9 +72,10 @@ function calculate() {
         if (annualDivRate > 0) {
 
             //calculate end of year status
-            startOfYearDividend = startOfYearAsset * annualDivRate * Math.pow((1 + annualDivGrowthRate), year - 1);
+            startOfYearDividend = startOfYearAsset * annualDivRate * Math.pow((1 + annualDivGrowthRate), year - 1) * (1 - taxRate);
             endOfYearAsset = startOfYearAsset + startOfYearDividend + annualFreeCash * Math.pow((1 + annualFreeCashGrowthRate), year - 1);
             accuDividend = accuDividend + startOfYearDividend;
+            accuSeed = accuSeed + annualFreeCash * Math.pow((1 + annualFreeCashGrowthRate), year - 1);
 
             if (startOfYearDividend / 12 >= targetCost) {
                 // Update table
@@ -73,11 +83,13 @@ function calculate() {
                 row.insertCell(0).innerHTML = `<strong>🔥목표 달성 - ${year} 년</strong>`;
                 row.insertCell(1).innerHTML = `<strong>${Number(Math.round(startOfYearDividend)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(2).innerHTML = `<strong>${Number(Math.round(endOfYearAsset)).toLocaleString()} 만 원</strong>`;
-                row.insertCell(3).innerHTML = `<strong>${Number(Math.round(accuDividend)).toLocaleString()} 만 원</strong>`;
+                row.insertCell(3).innerHTML = `<strong>${Number(Math.round(accuSeed)).toLocaleString()} 만 원</strong>`;
+                row.insertCell(4).innerHTML = `<strong>${Number(Math.round(accuDividend)).toLocaleString()} 만 원</strong>`;
 
                 document.getElementById('result1').innerText = `${year}`;
                 document.getElementById('result2').innerText = `${Number(Math.round(endOfYearAsset)).toLocaleString()}`;
-                document.getElementById('result3').innerText = `${Number(Math.round(startOfYearDividend/12)).toLocaleString()}`;
+                document.getElementById('result3').innerText = `${Number(Math.round(accuSeed)).toLocaleString()}`;
+                document.getElementById('result4').innerText = `${Number(Math.round(startOfYearDividend / 12)).toLocaleString()}`;
 
                 let resultContainer = document.getElementById('result-table-container');
                 if (resultContainer.style.display === 'none') {
@@ -92,7 +104,8 @@ function calculate() {
                 row.insertCell(0).innerHTML = `${year} 년`;
                 row.insertCell(1).innerHTML = `${Number(Math.round(startOfYearDividend)).toLocaleString()} 만 원`;
                 row.insertCell(2).innerHTML = `${Number(Math.round(endOfYearAsset)).toLocaleString()} 만 원`;
-                row.insertCell(3).innerHTML = `${Number(Math.round(accuDividend)).toLocaleString()} 만 원`;
+                row.insertCell(3).innerHTML = `${Number(Math.round(accuSeed)).toLocaleString()} 만 원`;
+                row.insertCell(4).innerHTML = `${Number(Math.round(accuDividend)).toLocaleString()} 만 원`;
 
                 startOfYearAsset = endOfYearAsset;
             }
@@ -124,6 +137,7 @@ function reset() {
     document.getElementById('result1').innerText = '0';
     document.getElementById('result2').innerText = `0`;
     document.getElementById('result3').innerText = `0`;
+    document.getElementById('result4').innerText = `0`;
 
     let resultContainer = document.getElementById('result-table-container');
     if (resultContainer.style.display !== 'none') {
