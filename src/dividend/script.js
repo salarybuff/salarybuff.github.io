@@ -25,10 +25,13 @@ function calculate() {
     let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
     let targetCost = parseInt(document.getElementById("calculator-retire-target_cost").value);
     const taxRegion = document.querySelector('input[name="btnradio"]:checked').value;
+    const taxYesNo = document.querySelector('input[name="btntax"]:checked').value;
 
     let taxRate = 0;
     if (taxRegion === 'USA') taxRate = 0.15;
     else if (taxRegion === 'KOR') taxRate = 0.154;
+
+    if (taxYesNo === 'false') taxRate = 0;    
 
     console.log(taxRegion);
 
