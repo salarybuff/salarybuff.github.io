@@ -133,15 +133,26 @@
             <td class="unit">만 원</td>
           </tr>
           <tr>
-            <td class="type">연간 배당률
+            <!-- <td class="type">연간 배당률
               <a class="custom-badge" onClick="showPopup('popup-desc-target-profit')">ⓘ</a>
               <div id="popup-desc-target-profit" class="popup-desc">
                 <div>배당주의 연간 배당률</div>
                 <a class="close-icon" onClick="closePopup('popup-desc-target-profit')">[닫기]</a>
               </div>
+            </td> -->
+            <!-- <td>
+              <input id="calculator-retire-annual_div_rate" type="number" step="any" min="0" class="form-control"
+                placeholder="예) 4.0">
+            </td> -->
+            <td class="type">시가 배당률
+              <a class="custom-badge" onClick="showPopup('popup-desc-target-profit')">ⓘ</a>
+              <div id="popup-desc-target-profit" class="popup-desc">
+                <div>배당주를 현재 가격으로 살 때 얻을 수 있는 연 수익률</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-target-profit')">[닫기]</a>
+              </div>
             </td>
             <td>
-              <input id="calculator-retire-annual_div_rate" type="number" step="any" min="0" class="form-control"
+              <input id="calculator-retire-div_yield" type="number" step="any" min="0" class="form-control"
                 placeholder="예) 4.0">
             </td>
             <td class="unit">%</td>
@@ -174,14 +185,27 @@
           </tr>
           <tr>
             <td class="type">투입금 증가율
-              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-investment')">ⓘ</a>
+              <a class="custom-badge" onClick="showPopup('popup-desc-monthly-investment-rate')">ⓘ</a>
               <div id="popup-desc-monthly-investment-rate" class="popup-desc">
                 <div>매월 투자에 투입할 수 있는 여유자금의 연간 증가율</div>
-                <a class="close-icon" onClick="closePopup('popup-desc-monthly-investment')">[닫기]</a>
+                <a class="close-icon" onClick="closePopup('popup-desc-monthly-investment-rate')">[닫기]</a>
               </div>
             </td>
             <td>
               <input id="calculator-retire-fc_annual_growth" type="number" class="form-control" placeholder="예) 10.0">
+            </td>
+            <td class="unit">%</td>
+          </tr>
+          <tr>
+            <td class="type">배당주 시가 성장률
+              <a class="custom-badge" onClick="showPopup('popup-desc-asset-growth-rate')">ⓘ</a>
+              <div id="popup-desc-equity-growth-rate" class="popup-desc">
+                <div>보유 중인 배당주 시가의 연간 성장률. 배당 재투자 시 매입 가능 주식 수에 영향.</div>
+                <a class="close-icon" onClick="closePopup('popup-desc-asset-growth-rate')">[닫기]</a>
+              </div>
+            </td>
+            <td>
+              <input id="calculator-retire-equity_growth_rate" type="number" class="form-control" placeholder="예) 5.0">
             </td>
             <td class="unit">%</td>
           </tr>

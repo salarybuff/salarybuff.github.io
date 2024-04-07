@@ -19,10 +19,12 @@ function closePopup(id) {
 
 function calculate() {
     let currentAsset = parseInt(document.getElementById("calculator-retire-curr_asset").value);
-    let annualDivRate = parseFloat(document.getElementById("calculator-retire-annual_div_rate").value) / 100;
+    // let annualDivRate = parseFloat(document.getElementById("calculator-retire-annual_div_rate").value) / 100;
+    let divYield = parseFloat(document.getElementById("calculator-retire-div_yield").value) / 100;
+    let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
+    let annualEquityGrowthRate = parseFloat(document.getElementById("calculator-retire-equity_growth_rate").value) / 100;
     let monthlyFreeCash = parseInt(document.getElementById("calculator-retire-monthly_fc").value);
     let annualFreeCashGrowthRate = parseFloat(document.getElementById("calculator-retire-fc_annual_growth").value) / 100;
-    let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
     let targetCost = parseInt(document.getElementById("calculator-retire-target_cost").value);
     const taxRegion = document.querySelector('input[name="btnradio"]:checked').value;
     const taxYesNo = document.querySelector('input[name="btntax"]:checked').value;
@@ -30,29 +32,30 @@ function calculate() {
     let taxRate = 0;
     if (taxRegion === 'USA') taxRate = 0.15;
     else if (taxRegion === 'KOR') taxRate = 0.154;
-
-    if (taxYesNo === 'false') taxRate = 0;    
-
-    console.log(taxRegion);
+    if (taxYesNo === 'false') taxRate = 0;
 
     let year = 1;
-    let endOfYearAsset = 0;
-    let startOfYearAsset = currentAsset;
+    // let startOfYearAsset = currentAsset;
+    let yearEndDivTotal = divYield * currentAsset; //1st year end
 
-    let startOfYearDividend = 0;
-    let monthlyDividend = 0;
-    let accuDividend = 0;
-    let accuSeed = currentAsset;
+    let virtualStockQty = Math.sqrt(currentAsset); //1st year end
+    let virtualStockPrice = Math.sqrt(currentAsset); //1st year end
+    let virtualDivPerStock = yearEndDivTotal / virtualStockQty; //1st year end
 
+    // let annualDivRate = 0;
+    // let startOfYearDividend = 0;
+    let accuDividend = yearEndDivTotal;
     let annualFreeCash = monthlyFreeCash * 12;
+    let accuSeed = currentAsset + annualFreeCash;
 
+    let endOfYearAsset = currentAsset + yearEndDivTotal + annualFreeCash;
 
     let table = document.getElementById("result-table");
     table.innerHTML = "";
     table.innerHTML = `
             <tr>
                 <th style="width:20%">연차</th>
-                <th style="width:20%">연초 배당금</th>
+                <th style="width:20%">연말 배당금</th>
                 <th style="width:20%">연말 보유 자산</th>
                 <th style="width:20%">누적 투자 원금</th>
                 <th style="width:20%">누적 재투자 배당금</th>
@@ -61,7 +64,7 @@ function calculate() {
 
     let doLoop = true;
 
-    if (isNaN(currentAsset) || isNaN(annualDivRate) || isNaN(monthlyFreeCash) || isNaN(annualFreeCashGrowthRate) || isNaN(annualDivGrowthRate) || isNaN(targetCost)) {
+    if (isNaN(currentAsset) || isNaN(divYield) || isNaN(monthlyFreeCash) || isNaN(annualFreeCashGrowthRate) || isNaN(annualDivGrowthRate) || isNaN(targetCost)) {
         alert('데이터를 입력해주세요.');
         doLoop = false;
     }
@@ -72,19 +75,13 @@ function calculate() {
     }
 
     while (doLoop) {
-        if (annualDivRate > 0) {
-
-            //calculate end of year status
-            startOfYearDividend = startOfYearAsset * annualDivRate * Math.pow((1 + annualDivGrowthRate), year - 1) * (1 - taxRate);
-            endOfYearAsset = startOfYearAsset + startOfYearDividend + annualFreeCash * Math.pow((1 + annualFreeCashGrowthRate), year - 1);
-            accuDividend = accuDividend + startOfYearDividend;
-            accuSeed = accuSeed + annualFreeCash * Math.pow((1 + annualFreeCashGrowthRate), year - 1);
-
-            if (startOfYearDividend / 12 >= targetCost) {
+        // if (annualDivRate > 0) {
+        if (divYield > 0) {
+            if (yearEndDivTotal / 12 >= targetCost) {
                 // Update table
                 let row = table.insertRow(year);
                 row.insertCell(0).innerHTML = `<strong>🔥목표 달성 - ${year} 년</strong>`;
-                row.insertCell(1).innerHTML = `<strong>${Number(Math.round(startOfYearDividend)).toLocaleString()} 만 원</strong>`;
+                row.insertCell(1).innerHTML = `<strong>${Number(Math.round(yearEndDivTotal)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(2).innerHTML = `<strong>${Number(Math.round(endOfYearAsset)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(3).innerHTML = `<strong>${Number(Math.round(accuSeed)).toLocaleString()} 만 원</strong>`;
                 row.insertCell(4).innerHTML = `<strong>${Number(Math.round(accuDividend)).toLocaleString()} 만 원</strong>`;
@@ -92,7 +89,7 @@ function calculate() {
                 document.getElementById('result1').innerText = `${year}`;
                 document.getElementById('result2').innerText = `${Number(Math.round(endOfYearAsset)).toLocaleString()}`;
                 document.getElementById('result3').innerText = `${Number(Math.round(accuSeed)).toLocaleString()}`;
-                document.getElementById('result4').innerText = `${Number(Math.round(startOfYearDividend / 12)).toLocaleString()}`;
+                document.getElementById('result4').innerText = `${Number(Math.round(yearEndDivTotal / 12)).toLocaleString()}`;
 
                 let resultContainer = document.getElementById('result-table-container');
                 if (resultContainer.style.display === 'none') {
@@ -105,12 +102,21 @@ function calculate() {
                 // Update table
                 let row = table.insertRow(year);
                 row.insertCell(0).innerHTML = `${year} 년`;
-                row.insertCell(1).innerHTML = `${Number(Math.round(startOfYearDividend)).toLocaleString()} 만 원`;
+                row.insertCell(1).innerHTML = `${Number(Math.round(yearEndDivTotal)).toLocaleString()} 만 원`;
                 row.insertCell(2).innerHTML = `${Number(Math.round(endOfYearAsset)).toLocaleString()} 만 원`;
                 row.insertCell(3).innerHTML = `${Number(Math.round(accuSeed)).toLocaleString()} 만 원`;
                 row.insertCell(4).innerHTML = `${Number(Math.round(accuDividend)).toLocaleString()} 만 원`;
 
-                startOfYearAsset = endOfYearAsset;
+                //calculate next year's values
+                annualFreeCash = annualFreeCash * (1 + annualFreeCashGrowthRate)
+                virtualStockPrice = virtualStockPrice * (1 + annualEquityGrowthRate);
+                virtualDivPerStock = virtualDivPerStock * (1 + annualDivGrowthRate);
+                virtualStockQty = virtualStockQty + (yearEndDivTotal + annualFreeCash) / virtualStockPrice;
+                
+                yearEndDivTotal = virtualStockQty * virtualDivPerStock;
+                endOfYearAsset = virtualStockQty * virtualStockPrice + yearEndDivTotal + annualFreeCash;
+                accuDividend = accuDividend + yearEndDivTotal;
+                accuSeed = accuSeed + annualFreeCash;
             }
 
             //increment year
