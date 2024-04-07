@@ -19,7 +19,6 @@ function closePopup(id) {
 
 function calculate() {
     let currentAsset = parseInt(document.getElementById("calculator-retire-curr_asset").value);
-    // let annualDivRate = parseFloat(document.getElementById("calculator-retire-annual_div_rate").value) / 100;
     let divYield = parseFloat(document.getElementById("calculator-retire-div_yield").value) / 100;
     let annualDivGrowthRate = parseFloat(document.getElementById("calculator-retire-div_annual_growth").value) / 100;
     let annualEquityGrowthRate = parseFloat(document.getElementById("calculator-retire-equity_growth_rate").value) / 100;
@@ -35,15 +34,12 @@ function calculate() {
     if (taxYesNo === 'false') taxRate = 0;
 
     let year = 1;
-    // let startOfYearAsset = currentAsset;
-    let yearStartDivTotal = divYield * currentAsset; //1st year end
+    let yearStartDivTotal = divYield * currentAsset;
 
-    let virtualStockQty = Math.sqrt(currentAsset); //1st year end
-    let virtualStockPrice = Math.sqrt(currentAsset); //1st year end
-    let virtualDivPerStock = divYield * currentAsset / virtualStockQty; //1st year end
+    let virtualStockQty = Math.sqrt(currentAsset);
+    let virtualStockPrice = Math.sqrt(currentAsset);
+    let virtualDivPerStock = divYield * currentAsset / virtualStockQty;
 
-    // let annualDivRate = 0;
-    // let startOfYearDividend = 0;
     let accuDividend = divYield * currentAsset;
     let annualFreeCash = monthlyFreeCash * 12;
     let accuSeed = currentAsset + annualFreeCash;
@@ -137,7 +133,7 @@ function calculate() {
 
 function reset() {
     document.getElementById("calculator-retire-curr_asset").value = '';
-    document.getElementById("calculator-retire-annual_div_rate").value = '';
+    document.getElementById("calculator-retire-div_yield").value = '';
     document.getElementById("calculator-retire-monthly_fc").value = '';
     document.getElementById("calculator-retire-fc_annual_growth").value = '';
     document.getElementById("calculator-retire-div_annual_growth").value = '';
