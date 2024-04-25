@@ -34,7 +34,7 @@ function calculate() {
     if (taxYesNo === 'false') taxRate = 0;
 
     let year = 1;
-    let yearStartDivTotal = divYield * currentAsset;
+    let yearStartDivTotal = divYield * currentAsset * (1 - taxRate);
 
     let virtualStockQty = Math.sqrt(currentAsset);
     let virtualStockPrice = Math.sqrt(currentAsset);
