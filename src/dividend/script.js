@@ -35,8 +35,8 @@ function calculate() {
 
     let year = 1;
     let yearStartDivTotal = divYield * currentAsset * (1 - taxRate);
-    let virtualStockQty = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.00000000000000001);
-    let virtualStockPrice = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.00000000000000001);
+    let virtualStockQty = currentAsset > 0 ? Math.sqrt(currentAsset) : 0;
+    let virtualStockPrice = currentAsset > 0 ? Math.sqrt(currentAsset) : 0;
     let virtualDivPerStock = divYield * virtualStockPrice;
 
     let accuDividend = divYield * currentAsset * (1 - taxRate);
@@ -108,8 +108,14 @@ function calculate() {
                 row.insertCell(4).innerHTML = `${Number(Math.round(accuDividend)).toLocaleString()} 만 원`;
 
                 //calculate Y+1 values
-                virtualStockQty = virtualStockQty + (yearStartDivTotal + annualFreeCash) / virtualStockPrice;
-                virtualStockPrice = virtualStockPrice * (1 + annualEquityGrowthRate);
+                if(virtualStockPrice == 0 && virtualStockQty == 0){
+                    virtualStockQty = Math.sqrt(annualFreeCash);
+                    virtualStockPrice = Math.sqrt(annualFreeCash);
+                    virtualDivPerStock = divYield * virtualStockPrice;
+                } else {
+                    virtualStockQty = virtualStockQty + (yearStartDivTotal + annualFreeCash) / virtualStockPrice;
+                    virtualStockPrice = virtualStockPrice * (1 + annualEquityGrowthRate);
+                }
                 yearStartDivTotal = virtualStockQty * virtualDivPerStock * (1 - taxRate);
                 virtualDivPerStock = virtualDivPerStock * (1 + annualDivGrowthRate);
 
@@ -131,6 +137,18 @@ function calculate() {
         if (year > 100) {
             alert('죄송합니다. 현재 상태로는 100년이 지나도 은퇴할 수 없습니다.');
             doLoop = false;
+            let table = document.getElementById("result-table");
+            table.innerHTML = '';
+
+            let resultContainer = document.getElementById('result-table-container');
+            if (resultContainer.style.display === 'block') {
+                resultContainer.style.display = 'none';
+            }
+
+            document.getElementById('result1').innerText = `${0}`;
+            document.getElementById('result2').innerText = `${0}`;
+            document.getElementById('result3').innerText = `${0}`;
+            document.getElementById('result4').innerText = `${0}`;
         }
     }
 }
@@ -155,5 +173,4 @@ function reset() {
         let table = document.getElementById("result-table");
         table.innerHTML = '';
     }
-
 }
