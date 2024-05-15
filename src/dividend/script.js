@@ -35,8 +35,8 @@ function calculate() {
 
     let year = 1;
     let yearStartDivTotal = divYield * currentAsset * (1 - taxRate);
-    let virtualStockQty = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.001);
-    let virtualStockPrice = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.001);
+    let virtualStockQty = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.00000000000000001);
+    let virtualStockPrice = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.00000000000000001);
     let virtualDivPerStock = divYield * virtualStockPrice;
 
     let accuDividend = divYield * currentAsset * (1 - taxRate);
