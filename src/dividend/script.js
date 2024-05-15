@@ -35,16 +35,14 @@ function calculate() {
 
     let year = 1;
     let yearStartDivTotal = divYield * currentAsset * (1 - taxRate);
+    let virtualStockQty = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.001);
+    let virtualStockPrice = currentAsset > 0 ? Math.sqrt(currentAsset) : Math.sqrt(0.001);
+    let virtualDivPerStock = divYield * virtualStockPrice;
 
-    let virtualStockQty = Math.sqrt(currentAsset);
-    let virtualStockPrice = Math.sqrt(currentAsset);
-    let virtualDivPerStock = divYield * currentAsset / virtualStockQty;
-
-    let accuDividend = divYield * currentAsset;
+    let accuDividend = divYield * currentAsset * (1 - taxRate);
     let annualFreeCash = monthlyFreeCash * 12;
     let accuSeed = currentAsset + annualFreeCash;
-
-    let endOfYearAsset = currentAsset + divYield * currentAsset + annualFreeCash;
+    let endOfYearAsset = currentAsset * (1 + annualEquityGrowthRate) + annualFreeCash + accuDividend;
 
     let table = document.getElementById("result-table");
     table.innerHTML = "";
@@ -65,13 +63,19 @@ function calculate() {
         doLoop = false;
     }
 
-    if (monthlyFreeCash === 0 || monthlyFreeCash < 0) {
+    // if (monthlyFreeCash === 0 || monthlyFreeCash < 0) {
+    if (monthlyFreeCash < 0) {
         alert('월 투자 금액은 0원 이상이어야 파이어가 가능합니다.');
         doLoop = false;
     }
 
     while (doLoop) {
-        // if (annualDivRate > 0) {
+        // console.log(year);
+        // console.log("yearStartDivTotal:" + yearStartDivTotal);
+        // console.log("virtualStockPrice:" + virtualStockPrice);
+        // console.log("virtualStockQty:" + virtualStockQty);
+        // console.log("virtualDivPerStock:" + virtualDivPerStock);
+
         if (divYield > 0) {
             if (yearStartDivTotal / 12 >= targetCost) {
                 // Update table
@@ -103,16 +107,16 @@ function calculate() {
                 row.insertCell(3).innerHTML = `${Number(Math.round(accuSeed)).toLocaleString()} 만 원`;
                 row.insertCell(4).innerHTML = `${Number(Math.round(accuDividend)).toLocaleString()} 만 원`;
 
-                //calculate next year's values
-                annualFreeCash = annualFreeCash * (1 + annualFreeCashGrowthRate)
-                virtualStockPrice = virtualStockPrice * (1 + annualEquityGrowthRate);
-                virtualDivPerStock = virtualDivPerStock * (1 + annualDivGrowthRate);
+                //calculate Y+1 values
                 virtualStockQty = virtualStockQty + (yearStartDivTotal + annualFreeCash) / virtualStockPrice;
-                
+                virtualStockPrice = virtualStockPrice * (1 + annualEquityGrowthRate);
                 yearStartDivTotal = virtualStockQty * virtualDivPerStock * (1 - taxRate);
-                endOfYearAsset = virtualStockQty * virtualStockPrice + yearStartDivTotal + annualFreeCash;
-                accuDividend = accuDividend + yearStartDivTotal;
+                virtualDivPerStock = virtualDivPerStock * (1 + annualDivGrowthRate);
+
+                annualFreeCash = annualFreeCash * (1 + annualFreeCashGrowthRate)
                 accuSeed = accuSeed + annualFreeCash;
+                accuDividend = accuDividend + yearStartDivTotal;
+                endOfYearAsset = virtualStockQty * virtualStockPrice + yearStartDivTotal + annualFreeCash;
             }
 
             //increment year
@@ -138,6 +142,7 @@ function reset() {
     document.getElementById("calculator-retire-fc_annual_growth").value = '';
     document.getElementById("calculator-retire-div_annual_growth").value = '';
     document.getElementById("calculator-retire-target_cost").value = '';
+    document.getElementById("calculator-retire-equity_growth_rate").value = '';
 
     document.getElementById('result1').innerText = '0';
     document.getElementById('result2').innerText = `0`;
