@@ -50,7 +50,7 @@ function calculate() {
         doLoop = false;
     }
 
-    if (monthlyFreeCash === 0 || monthlyFreeCash < 0){
+    if (monthlyFreeCash === 0 || monthlyFreeCash < 0) {
         alert('월 투자 금액은 0원 이상이어야 파이어가 가능합니다.');
         doLoop = false;
     }
@@ -58,6 +58,7 @@ function calculate() {
     while (doLoop) {
         if (annualProfitRate > 0) {
             if (fireStarted) {
+                console.log('Fire Started');
                 //update accumulated investment
                 accuInvestment = accuInvestment + fireSeedActual * (1 + annualProfitRate) - fireSeedActual
 
@@ -69,7 +70,7 @@ function calculate() {
                     if (resultContainer.style.display === 'none') {
                         resultContainer.style.display = 'block';
                     }
-                    document.getElementById('result3').innerText = `${Number(year-fireYear-1).toLocaleString()}`;
+                    document.getElementById('result3').innerText = `${Number(year - fireYear - 1).toLocaleString()}`;
 
                     doLoop = false;
                     break;
@@ -82,7 +83,7 @@ function calculate() {
                 row.insertCell(2).innerHTML = `${Number(Math.round(accuInvestment)).toLocaleString()} 만 원`;
             }
 
-            if (futureCapital>= targetSeed - annualFreeCash && !fireStarted) {
+            if (!fireStarted && futureCapital >= targetSeed - annualFreeCash) {
                 fireStarted = true;
                 fireSeedActual = futureCapital;
                 fireYear = year;
@@ -111,9 +112,16 @@ function calculate() {
                 futureCapital = futureCapital * (1 + annualProfitRate) + annualFreeCash;
             }
 
-            setTimeout(() => {
-                console.log(`${year} - ${futureCapital} | ${accuInvestment}`);
-            }, 250);
+            if (year > 100) {
+                let resultContainer = document.getElementById('result-table-container');
+                if (resultContainer.style.display === 'none') {
+                    resultContainer.style.display = 'block';
+                }
+                document.getElementById('result3').innerText = '∞';
+
+                doLoop = false;
+                break;
+            }
 
             //increment year
             year = year + 1;
