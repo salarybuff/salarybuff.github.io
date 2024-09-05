@@ -111,6 +111,10 @@ function calculate() {
                 futureCapital = futureCapital * (1 + annualProfitRate) + annualFreeCash;
             }
 
+            setTimeout(() => {
+                console.log(`${year} - ${futureCapital} | ${accuInvestment}`);
+            }, 250);
+
             //increment year
             year = year + 1;
         } else {
@@ -118,7 +122,6 @@ function calculate() {
             doLoop = false;
             break;
         }
-
     }
 }
 
